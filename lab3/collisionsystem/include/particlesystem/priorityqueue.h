@@ -180,7 +180,7 @@ void PriorityQueue<Comparable>::toss(const Comparable& x) {
 template <class Comparable>
 void PriorityQueue<Comparable>::insert(const Comparable& x) {
     // TO BE IMPLEMENTED
-    //toss(x);  // delete this line
+    toss(x);  // delete this line
 
     // Preserve the heap property by percolating the new element up
     size_t i = pq.size() - 1;
