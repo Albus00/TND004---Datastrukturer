@@ -4,7 +4,7 @@
 #include <vector>
 #include <cassert>
 
-//#define TEST_PRIORITY_QUEUE
+#define TEST_PRIORITY_QUEUE
 
 /**
  * A heap based priority queue where the root is the smallest element -- min heap
@@ -93,8 +93,16 @@ private:
      * Test whether pq is a min heap
      */
     bool isMinHeap() const {
-        // TO BE IMPLEMENTED
-        return false;  // delete this line
+        // TO BE IMPLEMENTED   
+    for (auto i = 1; i <= size(); ++i) {
+            if (2 * i <= size() && pq[2 * i] < pq[i]) {
+                return false;  // left child is smaller
+            }
+            if (2 * i + 1 <= size() && pq[2 * i + 1] < pq[i]) {
+                return false;  // right child is smaller
+            }
+        }
+        return true;
     }
 };
 
@@ -172,7 +180,14 @@ void PriorityQueue<Comparable>::toss(const Comparable& x) {
 template <class Comparable>
 void PriorityQueue<Comparable>::insert(const Comparable& x) {
     // TO BE IMPLEMENTED
-    toss(x);  // delete this line
+    //toss(x);  // delete this line
+
+    // Preserve the heap property by percolating the new element up
+    size_t i = pq.size() - 1;
+    while (i > 1 && pq[i] < pq[i / 2]) {
+        std::swap(pq[i], pq[i / 2]);
+        i /= 2;
+    }
 
 #ifdef TEST_PRIORITY_QUEUE  // do not delete
     assert(isMinHeap());
