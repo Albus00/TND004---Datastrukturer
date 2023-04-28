@@ -4,7 +4,7 @@
 #include <vector>
 #include <cassert>
 
-#define TEST_PRIORITY_QUEUE
+//#define TEST_PRIORITY_QUEUE
 
 /**
  * A heap based priority queue where the root is the smallest element -- min heap
@@ -90,15 +90,26 @@ private:
     void percolateDown(size_t i);
 
     /**
-     * Test whether pq is a min heap
+     * If the array pq is a min heap it means that each nodes value should be less or equal to the value of it's respecitve child.
+     * The function isMinHeap() check if the right/left side's value is less than it's predecessor i and return false if not.
+     * If the return is false the array pq is not a binary min heap.
+     * TO BE IMPLEMENTED  
      */
     bool isMinHeap() const {
-        // TO BE IMPLEMENTED   
-    for (auto i = 1; i <= size(); ++i) {
-            if (2 * i <= size() && pq[2 * i] < pq[i]) {
+    
+    int sizeOfArray = pq.size();
+
+    // If the array is empty it's already a min-heap and proceeding is useless.
+    if (sizeOfArray == 0) 
+    {
+        return true;
+    }
+
+    for (size_t i = 1; i <= sizeOfArray; ++i) {
+        if (2 * i <= sizeOfArray && pq[2 * i] < pq[i]) {
                 return false;  // left child is smaller
             }
-            if (2 * i + 1 <= size() && pq[2 * i + 1] < pq[i]) {
+        if (2 * i + 1 <= sizeOfArray && pq[2 * i + 1] < pq[i]) {
                 return false;  // right child is smaller
             }
         }
@@ -180,8 +191,6 @@ void PriorityQueue<Comparable>::toss(const Comparable& x) {
 template <class Comparable>
 void PriorityQueue<Comparable>::insert(const Comparable& x) {
     // TO BE IMPLEMENTED
-    toss(x);  // delete this line
-
     // Preserve the heap property by percolating the new element up
     size_t i = pq.size() - 1;
     while (i > 1 && pq[i] < pq[i / 2]) {
@@ -190,6 +199,6 @@ void PriorityQueue<Comparable>::insert(const Comparable& x) {
     }
 
 #ifdef TEST_PRIORITY_QUEUE  // do not delete
-    assert(isMinHeap());
+    assert(isMinHeap()); 
 #endif
 }

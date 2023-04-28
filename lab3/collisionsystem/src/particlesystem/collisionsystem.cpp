@@ -16,8 +16,8 @@ namespace {
 void addEvent(double time, Particle* particleA, Particle* particleB, PriorityQueue<Event>& queue,
               double simulationTime) {
     if (time < simulationTime) {
-        // queue.insert(Event{time, particleA, particleB});
-        queue.toss(Event{time, particleA, particleB});
+        queue.insert(Event{time, particleA, particleB});
+        //queue.toss(Event{time, particleA, particleB});
     }
 }
 
