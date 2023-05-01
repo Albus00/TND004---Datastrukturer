@@ -255,13 +255,22 @@ Set& Set::operator+=(const Set& S) {
             p2 = p2->next;
         }
         else if (p1->value < p2->value) {
-            if (p1->next->value < p2->value) {
-				p1 = p1->next;
-            }
-            else {
+            if (p1->next == tail)
+            {
                 insert_node(p1, p2->value);
-                p1 = p1->next->next;
-			    p2 = p2->next;
+                p2 = p2->next;
+                break;
+            }
+            else
+            {
+                if (p1->next->value < p2->value) {
+				    p1 = p1->next;
+                }
+                else {
+                    insert_node(p1, p2->value);
+                    p1 = p1->next->next;
+			        p2 = p2->next;
+                }
             }
         }
         else {
