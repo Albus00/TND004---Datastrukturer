@@ -8,7 +8,7 @@
 
 /**
  * A heap based priority queue where the root is the smallest element -- min heap
- */
+*/
 template <class Comparable>
 class PriorityQueue {
 public:
@@ -90,26 +90,25 @@ private:
     void percolateDown(size_t i);
 
     /**
-     * If the array pq is a min heap it means that each nodes value should be less or equal to the value of it's respecitve child.
-     * The function isMinHeap() check if the right/left side's value is less than it's predecessor i and return false if not.
-     * If the return is false the array pq is not a binary min heap.
-     * TO BE IMPLEMENTED  
+     * If the array pq is a min heap it means that each nodes value should be less or equal to the
+     * value of it's respecitve child. The function isMinHeap() check if the right/left side's value
+     * is less than it's predecessor i and return false if not. If the return is false the array pq
+     * is not a binary min heap. TO BE IMPLEMENTED
      */
     bool isMinHeap() const {
-    
-    int sizeOfArray = pq.size();
 
-    // If the array is empty it's already a min-heap and proceeding is useless.
-    if (sizeOfArray == 0) 
-    {
-        return true;
-    }
+        int sizeOfArray = pq.size();
 
-    for (size_t i = 1; i <= sizeOfArray; ++i) {
-        if (2 * i <= sizeOfArray && pq[2 * i] < pq[i]) {
+        // If the array is empty it's already a min-heap and proceeding is useless.
+        if (sizeOfArray == 0) {
+            return true;
+        }
+
+        for (size_t i = 1; i < sizeOfArray; ++i) {
+            if (2 * i < sizeOfArray && pq[2 * i] < pq[i]) {
                 return false;  // left child is smaller
             }
-        if (2 * i + 1 <= sizeOfArray && pq[2 * i + 1] < pq[i]) {
+            if (2 * i + 1 < sizeOfArray && pq[2 * i + 1] < pq[i]) {
                 return false;  // right child is smaller
             }
         }
@@ -196,12 +195,12 @@ void PriorityQueue<Comparable>::insert(const Comparable& x) {
     pq.push_back(x);
 
     size_t i = pq.size() - 1;
-    while (i > 0 && pq[i] < pq[i / 2]) {
-        std::swap(pq[i], pq[i / 2]);
+    while (i > 1 && x < pq[i / 2]) {
+        pq[i] = pq[i / 2];
         i /= 2;
     }
-
+    pq[i] = x;
 #ifdef TEST_PRIORITY_QUEUE  // do not delete
-    assert(isMinHeap()); 
+    assert(isMinHeap());
 #endif
 }
