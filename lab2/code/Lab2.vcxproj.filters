@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\sebas\Documents\LiU\Laborationer\TND004\Git\TND004-Datastrukturer\lab2\code\lab2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\sebas\Documents\LiU\Laborationer\TND004\Git\TND004-Datastrukturer\lab2\code\set.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\sebas\Documents\LiU\Laborationer\TND004\Git\TND004-Datastrukturer\lab2\code\set.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\sebas\Documents\LiU\Laborationer\TND004\Git\TND004-Datastrukturer\lab2\code\node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\sebas\Documents\LiU\Laborationer\TND004\Git\TND004-Datastrukturer\lab2\code\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{5E9E7A26-640B-3F37-A491-B6FFED9D5DED}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4A198E07-8294-39E0-97D4-74A252B7F744}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

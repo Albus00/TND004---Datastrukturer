@@ -1,0 +1,3 @@
+C:/Users/sebas/Documents/LiU/Laborationer/TND004/Git/TND004-Datastrukturer/lab2/code/CMakeFiles/Lab2.dir
+C:/Users/sebas/Documents/LiU/Laborationer/TND004/Git/TND004-Datastrukturer/lab2/code/CMakeFiles/ALL_BUILD.dir
+C:/Users/sebas/Documents/LiU/Laborationer/TND004/Git/TND004-Datastrukturer/lab2/code/CMakeFiles/ZERO_CHECK.dir

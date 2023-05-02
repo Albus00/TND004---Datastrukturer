@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\sebas\Documents\LiU\Laborationer\TND004\Git\TND004-Datastrukturer\lab2\code\CMakeFiles\1943be8bf0c650a917198809c4edd3ab\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{564F8146-2D08-3738-8884-3986297B6319}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

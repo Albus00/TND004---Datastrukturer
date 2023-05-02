@@ -250,10 +250,12 @@ Set& Set::operator+=(const Set& S) {
     Node* p2 = S.head->next;
 
     while (p1 != tail && p2 != S.tail) {
+       //Step through p2 and and insert node with p2 value since it isn't in p1. 
         if (p1->value > p2->value) {
 			insert_node(p1->prev, p2->value);
             p2 = p2->next;
         }
+        // Insert the value of p2 since it isn't contained in p1.
         else if (p1->value < p2->value) {
             if (p1->next == tail)
             {
@@ -261,6 +263,7 @@ Set& Set::operator+=(const Set& S) {
                 p2 = p2->next;
                 break;
             }
+            // Security check to make sure the values doesn't get misplaced. Making sure the vector stays sorted.
             else
             {
                 if (p1->next->value < p2->value) {
@@ -273,12 +276,14 @@ Set& Set::operator+=(const Set& S) {
                 }
             }
         }
+        // Continue stepping through if they are equal and shall not be added.
         else {
 			p1 = p1->next;
             p2 = p2->next;
         }
     }
-
+    
+    // If p2 is longer than p1.
     while (p2 != S.tail) {
         insert_node(p1, p2->value);
         p2 = p2->next;
@@ -317,6 +322,7 @@ Set& Set::operator*=(const Set& S) {
 
     } while (localN != head || newN != S.head);
 
+    // Swap the resultSet with the local set, which we are returning. So we return the right set.
 	std::swap(head, resultSet.head);
 	std::swap(tail, resultSet.tail);
     counter = resultSet.counter;
@@ -332,15 +338,7 @@ Set& Set::operator-=(const Set& S) {
 
     Node* newN = S.head->next;
     Node* localN = head->next;  // local set
-    //do
-    //{
-    //    localN = localN->next;
-    //    if (S.is_member(localN->prev->value)) {
-    //        remove_node(localN->prev);
-    //    }
-
-    //} while (localN != tail); // Untill we reached the end of the local set.
-
+  
     if (S.is_empty() || is_empty()) {
         return *this;
     }
