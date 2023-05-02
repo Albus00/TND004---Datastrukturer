@@ -4,7 +4,7 @@
 #include <vector>
 #include <cassert>
 
-//#define TEST_PRIORITY_QUEUE
+#define TEST_PRIORITY_QUEUE
 
 /**
  * A heap based priority queue where the root is the smallest element -- min heap
@@ -187,13 +187,16 @@ void PriorityQueue<Comparable>::toss(const Comparable& x) {
 
 /**
  * Add a new element x to the queue
+ * Passed by reference to avoid copying if we called by value.
  */
 template <class Comparable>
 void PriorityQueue<Comparable>::insert(const Comparable& x) {
     // TO BE IMPLEMENTED
     // Preserve the heap property by percolating the new element up
+    pq.push_back(x);
+
     size_t i = pq.size() - 1;
-    while (i > 1 && pq[i] < pq[i / 2]) {
+    while (i > 0 && pq[i] < pq[i / 2]) {
         std::swap(pq[i], pq[i / 2]);
         i /= 2;
     }

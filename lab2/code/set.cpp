@@ -185,9 +185,6 @@ std::partial_ordering Set::operator<=>(const Set& S) const {
     Node* LhsN = head->next;
     Node* RhsN = S.head->next;
 
-    // Check to see if empty first
-    //if (LhsN != tail)
-    //{
         while (LhsN != tail && RhsN != S.tail)
         {
             if (LhsN->value < RhsN->value)
@@ -195,7 +192,7 @@ std::partial_ordering Set::operator<=>(const Set& S) const {
                 RhsContainsLhs = false;
                 LhsN = LhsN->next;
             }
-            if (LhsN->value > RhsN->value) // 
+            if (LhsN->value > RhsN->value) 
             {
                 LhsContainsRhs = false;
                 RhsN = RhsN->next;
@@ -238,7 +235,7 @@ std::partial_ordering Set::operator<=>(const Set& S) const {
             return std::partial_ordering::unordered;
         }
 
-    return std::partial_ordering::unordered;
+    return std::partial_ordering::unordered; // For safety.
 }
 
 /*
