@@ -68,44 +68,87 @@ void Digraph::removeEdge(const Edge& e) {
     --n_edges;
 }
 
+// *** TODO ***
+//Exercise 1
 // construct unweighted single source shortest path-tree for start vertex s
 void Digraph::uwsssp(int s) const {
     assert(s >= 1 && s <= size);
 
-    // *** TODO ***
-
     std::queue<int> queue; // Create an empty queue.
-    queue.push(s); // Add the start-node to the queue.
 
     // The dist vector. Checking distance from start to each and every node. 
-    std::vector<int> dist(size + 1, std::numeric_limits<int>::max());
-    dist[0] = s; // Distance from the startnode to itself should be set to zero.
+    while (path.size() < size)
+    {
+        dist.push_back(std::numeric_limits<int>::max());
+        path.push_back(0);
+    }
+    dist[s] = 0; // Distance from the startnode to itself should be set to zero.
+
+    queue.push(s); // Add the start-node to the queue.
 
     // Breadth-first-search algorithm implementation
     while (!queue.empty())
     {
-        int compareNode = queue.front();
+        int compare = queue.front();
         queue.pop();
-        for (int v : adj[i])
+
+        for (Edge e : table[compare])
         {
-
+            if (dist[e.tail-1] == std::numeric_limits<int>::max())
+            {
+                dist[e.tail-1] = dist[compare] + 1;
+                path[e.tail-1] = compare;
+                queue.push(e.tail-1);
+            }
         }
-
     }
-
-
-
-    
-    // dist vector should be initialized with std::numeric_limits<int>::max()
 }
 
 // construct positive weighted single source shortest path-tree for start vertex s
 // Dijktra’s algorithm
+// *** TODO ***
 void Digraph::pwsssp(int s) const {
     assert(s >= 1 && s <= size);
 
-    // *** TODO ***
-    // dist vector should be initialized with std::numeric_limits<int>::max()
+    while (path.size() < size)
+    {
+        dist.push_back(std::numeric_limits<int>::max());
+        path.push_back(0);
+        done.push_back(false);
+    }
+
+    dist[s] = 0;
+    done[s] = true;
+    int v = s;
+
+    while (true)
+    {
+        for (Edge e : table[v])
+        {
+            if (done[e.tail - 1] == false && dist[e.tail - 1] > dist[v] + e.weight)
+            {
+                dist[e.tail - 1] = dist[v] + e.weight; // Info about weight is in edge.h (Note for us)
+                path[e.tail - 1] = v;
+            }
+        }
+
+        // find_smallest_undone_distance_vertex(); Find the min in vector dist not marked.
+        for (int i = 1; i <= size; i++)
+        {
+            if(done[i] == false && dist[i] < std::numeric_limits<int>::max())
+            {
+                dist[i] = std::numeric_limits<int>::max();
+                i = v;
+            }
+        }
+
+        if (v == std::numeric_limits<int>::max())
+        {
+            break;
+        }
+
+        done[v] = true;
+    }
 }
 
 // print graph
@@ -140,8 +183,9 @@ void Digraph::printTree() const {
 
 // print shortest path from s to t and the corresponding path length
 // Hint: consider using recursion
+// *** TODO ***
 void Digraph::printPath(int t) const {
     assert(t >= 1 && t <= size);
 
-    // *** TODO ***
+    
 }
