@@ -77,10 +77,10 @@ void Digraph::uwsssp(int s) const {
     std::queue<int> queue; // Create an empty queue.
 
     // The dist vector. Checking distance from start to each and every node. 
-    while (path.size() < size)
+    for (int i = 1; i <= size; i++)
     {
-        dist.push_back(std::numeric_limits<int>::max());
-        path.push_back(0);
+        dist[i] = std::numeric_limits<int>::max();
+        path[i] = 0;
     }
     dist[s] = 0; // Distance from the startnode to itself should be set to zero.
 
@@ -94,11 +94,11 @@ void Digraph::uwsssp(int s) const {
 
         for (Edge e : table[compare])
         {
-            if (dist[e.tail-1] == std::numeric_limits<int>::max())
+            if (dist[e.tail] == std::numeric_limits<int>::max())
             {
-                dist[e.tail-1] = dist[compare] + 1;
-                path[e.tail-1] = compare;
-                queue.push(e.tail-1);
+                dist[e.tail] = dist[compare] + 1;
+                path[e.tail] = compare;
+                queue.push(e.tail);
             }
         }
     }
@@ -110,12 +110,17 @@ void Digraph::uwsssp(int s) const {
 void Digraph::pwsssp(int s) const {
     assert(s >= 1 && s <= size);
 
-    while (path.size() < size)
-    {
-        dist.push_back(std::numeric_limits<int>::max());
-        path.push_back(0);
-        done.push_back(false);
-    }
+    //for (int i = 0; i < size; i++)
+    //{
+    //    dist[i](std::numeric_limits<int>::max());
+    //    path.push_back(0);
+    //    done.push_back(false);
+    //}
+
+    // Complexity is equal to size of the vectors which is the size of the vector, therefore it's O(n)
+	std::fill(dist.begin(), dist.end(), std::numeric_limits<int>::max());
+	std::fill(path.begin(), path.end(), 0);
+	std::fill(done.begin(), done.end(), false);
 
     dist[s] = 0;
     done[s] = true;
@@ -123,26 +128,27 @@ void Digraph::pwsssp(int s) const {
 
     while (true)
     {
+        
         for (Edge e : table[v])
         {
-            if (done[e.tail - 1] == false && dist[e.tail - 1] > dist[v] + e.weight)
+            if (done[e.tail] == false && dist[e.tail] > dist[v] + e.weight)
             {
-                dist[e.tail - 1] = dist[v] + e.weight; // Info about weight is in edge.h (Note for us)
-                path[e.tail - 1] = v;
+                dist[e.tail] = dist[v] + e.weight; // Info about weight is in edge.h (Note for us)
+                path[e.tail] = v;
             }
         }
 
-        // find_smallest_undone_distance_vertex(); Find the min in vector dist not marked.
-        for (int i = 1; i <= size; i++)
-        {
-            if(done[i] == false && dist[i] < std::numeric_limits<int>::max())
-            {
-                dist[i] = std::numeric_limits<int>::max();
-                i = v;
-            }
+		// find_smallest_undone_distance_vertex();
+		int minDist = std::numeric_limits<int>::max();
+        for (int i = 1; i <= size; i++) {
+			if (minDist > dist[i] && !done[i])
+			{
+			    v = i;
+			    minDist = dist[i];
+			}
         }
 
-        if (v == std::numeric_limits<int>::max())
+        if (minDist == std::numeric_limits<int>::max())
         {
             break;
         }
@@ -187,5 +193,26 @@ void Digraph::printTree() const {
 void Digraph::printPath(int t) const {
     assert(t >= 1 && t <= size);
 
-    
+    std::vector<int> shortestPath;
+    int steps = 0;
+
+    while (dist[t] != 0)
+    {
+        shortestPath.push_back(t);
+        t = path[t];
+        steps++;
+    }
+
+	shortestPath.push_back(t);
+
+	std::reverse(shortestPath.begin(), shortestPath.end());
+
+    std::cout << " ";
+    for (int i : shortestPath)
+    {
+        std::cout << i << "  ";
+    }
+
+    std::cout << " (" << steps << ")";
+
 }
