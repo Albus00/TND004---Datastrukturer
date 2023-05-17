@@ -109,6 +109,8 @@ void Graph::mstPrim() const {
             break;
         }
 
+        // Make the whole edge visible in the program.
+
         Edge E(path[v], v, dist[v]);
         std::cout << E << " \n";
 
@@ -122,10 +124,52 @@ void Graph::mstPrim() const {
 // Kruskal's minimum spanning tree algorithm
 void Graph::mstKruskal() const {
 
-    /*std::vector<Edge> heap = {};
-    std::make_heap(heap.begin(), heap.end(), std::greater<int>{});*/
+    std::vector<Edge> heap;
+    DSets D(size); // From dsets.hpp which is included
+    std::vector<Edge> printEdge; // The edges stored in the minimum spanning tree.
 
-    // *** TODO ***
+    int counter = 0; // Number of edges in the minimum spanning tree.
+    int totalWeight = 0; // Same as in Prim's algorithm
+
+    // Build heap with all the edges
+    for (int i = 1; i < size; i++) {
+        for (Edge e : table[i])
+        {
+            if (i < e.tail)
+            {
+                heap.push_back(e);
+            }
+        }
+    }
+
+    // Heapify heap (min heap)
+    std::make_heap(heap.begin(), heap.end(), std::greater<Edge>{});
+
+    while (counter < size - 1)
+    {
+        // Find an edge with lowest cost
+        Edge lowestCost = heap.front(); // Front element of the heap
+        std::pop_heap(heap.begin(), heap.end(), std::greater<Edge>{}); // Move the edge with lowest weight to the front.
+        heap.pop_back(); // Removes the last element of the container O(1)
+
+        int findHead = D.find(lowestCost.head);
+        int findTail = D.find(lowestCost.tail);
+
+        // Union
+        if (findHead != findTail)
+        {
+            D.join(findHead, findTail);
+            totalWeight += lowestCost.weight;
+            counter++;
+            printEdge.push_back(lowestCost);
+        }
+    }
+    for (Edge e : printEdge)
+    {
+        std::cout << e << "\n";
+    }
+
+    std::cout << "Total weight: " << totalWeight;
 }
 
 // print graph

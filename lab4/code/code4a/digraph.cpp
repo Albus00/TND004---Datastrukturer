@@ -110,13 +110,6 @@ void Digraph::uwsssp(int s) const {
 void Digraph::pwsssp(int s) const {
     assert(s >= 1 && s <= size);
 
-    //for (int i = 0; i < size; i++)
-    //{
-    //    dist[i](std::numeric_limits<int>::max());
-    //    path.push_back(0);
-    //    done.push_back(false);
-    //}
-
     // Complexity is equal to size of the vectors which is the size of the vector, therefore it's O(n)
 	std::fill(dist.begin(), dist.end(), std::numeric_limits<int>::max());
 	std::fill(path.begin(), path.end(), 0);
