@@ -68,8 +68,8 @@ void Digraph::removeEdge(const Edge& e) {
     --n_edges;
 }
 
+
 // *** TODO ***
-//Exercise 1
 // construct unweighted single source shortest path-tree for start vertex s
 void Digraph::uwsssp(int s) const {
     assert(s >= 1 && s <= size);
@@ -207,7 +207,7 @@ void Digraph::printPath(int t) const {
 
 	std::reverse(shortestPath.begin(), shortestPath.end());
 
-    std::cout << " ";
+    std::cout << "  ";
     for (int i : shortestPath)
     {
         std::cout << i << "  ";

@@ -74,11 +74,56 @@ void Graph::mstPrim() const {
     std::vector<int> path(size_t(size) + 1, 0);
     std::vector<bool> done(size_t(size) + 1, false);
 
-    // *** TODO ***
+    for (int i = 1; i <= size; i++) {
+        dist[i] = std::numeric_limits<int>::max();
+        path[i] = 0;
+        done[i] = false;
+    }
+    dist[1] = 0;
+    done[1] = 0;
+    int v = 1;
+    int totalWeight = 0;
+
+    while (true)
+    {
+        for (Edge e : table[v])
+        {
+            if (done[e.tail] == false && dist[e.tail] > e.weight)
+            {
+                dist[e.tail] = e.weight;
+                path[e.tail] = v;
+            }
+        }
+
+        int minDist = std::numeric_limits<int>::max();
+        for (int i = 1; i <= size; i++) {
+            if (minDist > dist[i] && !done[i])
+            {
+                v = i;
+                minDist = dist[i];
+            }
+        }
+
+        if (minDist == std::numeric_limits<int>::max())
+        {
+            break;
+        }
+
+        Edge E(path[v], v, dist[v]);
+        std::cout << E << " \n";
+
+        totalWeight += dist[v];
+        done[v] = true;
+    }
+    
+    std::cout << "Total weight = " << totalWeight << " ";
 }
 
 // Kruskal's minimum spanning tree algorithm
 void Graph::mstKruskal() const {
+
+    /*std::vector<Edge> heap = {};
+    std::make_heap(heap.begin(), heap.end(), std::greater<int>{});*/
 
     // *** TODO ***
 }
