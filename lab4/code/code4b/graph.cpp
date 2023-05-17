@@ -74,29 +74,31 @@ void Graph::mstPrim() const {
     std::vector<int> path(size_t(size) + 1, 0);
     std::vector<bool> done(size_t(size) + 1, false);
 
-    for (int i = 1; i <= size; i++) {
+    for (int i = 1; i <= size; ++i) {
         dist[i] = std::numeric_limits<int>::max();
         path[i] = 0;
         done[i] = false;
     }
     dist[1] = 0;
-    done[1] = 0;
+    done[1] = true; // To skip the first one (0, 1, 0)
     int v = 1;
     int totalWeight = 0;
 
     while (true)
     {
+        // find_smallest_undone_distance_vertex(); Used in digraph.cpp (4B)
+        int minDist = std::numeric_limits<int>::max();
         for (Edge e : table[v])
         {
-            if (done[e.tail] == false && dist[e.tail] > e.weight)
+            if (!done[e.tail] && dist[e.tail] > e.weight)
             {
                 dist[e.tail] = e.weight;
                 path[e.tail] = v;
             }
         }
 
-        int minDist = std::numeric_limits<int>::max();
-        for (int i = 1; i <= size; i++) {
+        for (int i = 1; i <= size; ++i) 
+        {
             if (minDist > dist[i] && !done[i])
             {
                 v = i;
@@ -129,10 +131,10 @@ void Graph::mstKruskal() const {
     std::vector<Edge> printEdge; // The edges stored in the minimum spanning tree.
 
     int counter = 0; // Number of edges in the minimum spanning tree.
-    int totalWeight = 0; // Same as in Prim's algorithm
+    int totalWeight = 0;
 
     // Build heap with all the edges
-    for (int i = 1; i < size; i++) {
+    for (int i = 1; i < size; ++i) {
         for (Edge e : table[i])
         {
             if (i < e.tail)

@@ -106,7 +106,6 @@ void Digraph::uwsssp(int s) const {
 
 // construct positive weighted single source shortest path-tree for start vertex s
 // Dijktra’s algorithm
-// *** TODO ***
 void Digraph::pwsssp(int s) const {
     assert(s >= 1 && s <= size);
 
